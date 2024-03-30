@@ -1,2 +1,14 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    import Page from "../component/Navbar/Page.svelte";
+
+</script>
+
+
+<Page>
+    <div class="firewall flex flex-col align-center items-center">
+        <h1>Page</h1>
+        <p>This is a page</p>
+    </div>
+</Page>
+
+
