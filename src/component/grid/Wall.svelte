@@ -60,9 +60,10 @@
 </script>
 
 <div id="container">
-    <div class="brick 1x2 w-30 h-30 bg-amber-700">some stuff</div>
-    <div class="brick 2x1 w-30 h-30 bg-amber-700">some stuff</div>
-    <div class="brick 3x2 w-30 h-30 bg-amber-700">some stuff</div>
-    <div class="brick 2x2 w-30 h-30 bg-amber-700">some stuff</div>
-    <div class="brick 1x1 w-30 h-30 bg-amber-700">some stuff</div>
+    <div class="brick 1x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
+    <div class="brick 2x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
+    <div class="brick 3x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
+    <div class="brick 2x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
+    <div class="brick 1x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
+    <div class="brick 1x1 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
 </div>
