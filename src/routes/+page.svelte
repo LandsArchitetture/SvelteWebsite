@@ -1,13 +1,13 @@
 <script>
-    import Page from "../component/Navbar/Page.svelte";
+    import Wall from "../component/grid/Wall.svelte";
+    import Page from "../component/navbar/Page.svelte";
 
 </script>
 
 
 <Page>
-    <div class="firewall flex flex-col align-center items-center">
-        <h1>Page</h1>
-        <p>This is a page</p>
+    <div class="freewall">
+        <Wall />
     </div>
 </Page>
 

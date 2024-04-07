@@ -32,6 +32,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"daisyui": "^4.9.0"
+		"daisyui": "^4.9.0",
+		"freewall": "^1.0.8",
+		"jquery": "^3.7.1"
 	}
 }
