@@ -1,5 +1,5 @@
 <script>
-	import { setContext } from "svelte";
+	// import { setContext } from "svelte";
     import Wall from "../component/grid/Wall.svelte";
     import Navbar from "../component/navbar/Navbar.svelte";
     import { createDirectus, rest, readItems, readFiles } from '@directus/sdk';
@@ -24,13 +24,13 @@
         }
     })();
 
-    if (typeof data !== 'undefined') {
-        setContext('posts', data.posts.data);
-        setContext('projects', data.projects.data);
-        setContext('files', data.files.data);
-        setContext('translations', data.posts_translations.data);
-        setContext('languages', data.languages.data);
-    }
+    // if (typeof data !== 'undefined') {
+    //     setContext('posts', data.posts);
+    //     setContext('projects', data.projects);
+    //     setContext('files', data.files);
+    //     setContext('translations', data.posts_translations);
+    //     setContext('languages', data.languages);
+    // }
 </script>
 
 {#if isLoading}
@@ -42,7 +42,7 @@
 {:else}
     <Navbar>
         <div class="freewall m-2">
-            <Wall {data} />
+            <Wall data={data} />
         </div>
     </Navbar>
 {/if}
