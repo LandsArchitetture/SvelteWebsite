@@ -1,14 +1,14 @@
 <script>
     import Wall from "../component/grid/Wall.svelte";
-    import Page from "../component/navbar/Page.svelte";
+    import Navbar from "../component/navbar/Navbar.svelte";
 
 </script>
 
 
-<Page>
+<Navbar>
     <div class="freewall">
         <Wall />
     </div>
-</Page>
+</Navbar>
 
 
