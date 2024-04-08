@@ -1,8 +1,9 @@
 <script>
     import { onMount } from 'svelte';
+    // import { getContext } from 'svelte';
     // import Card from './Card.svelte';
 
-    export let wall;
+    let wall;
 
     function resizeBig(wall) {
         wall.reset({
@@ -57,13 +58,18 @@
         })
     });
 
+    // let posts = getContext('posts')[0];
+
 </script>
 
-<div id="container">
-    <div class="brick 1x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
-    <div class="brick 2x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
-    <div class="brick 3x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
-    <div class="brick 2x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
-    <div class="brick 1x2 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
-    <div class="brick 1x1 w-30 h-30 bg-amber-700 rounded-xl">some stuff</div>
+<div id="container" class="flex">
+    <div class="brick 1x1 bg-amber-700 rounded-xl"></div>
+    <div class="brick 1x2 bg-amber-700 rounded-xl"></div>
+    <div class="brick 2x1 bg-amber-700 rounded-xl"></div>
+    <div class="brick 3x3 bg-amber-700 rounded-xl"></div>
+    <div class="brick 1x2 bg-amber-700 rounded-xl"></div>
+    <div class="brick 2x2 bg-amber-700 rounded-xl"></div>
+    <!-- {#each posts as post}
+        <Card {...post} />
+    {/each} -->
 </div>
