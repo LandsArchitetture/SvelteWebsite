@@ -1,6 +1,6 @@
 <script>
     import Wall from "../component/grid/Wall.svelte";
-    import Navbar from "../component/navbar/Navbar.svelte";
+    import Navbar from "../component/gino/Navbar.svelte";
 
 </script>
 
