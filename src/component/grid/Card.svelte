@@ -20,7 +20,7 @@
 </button>
 
 <dialog id={post.project} class="modal">
-    <div class="modal-box w-fit max-w-fit p-0">
+    <div class="modal-box flex p-0 max-w-fit w-5/6">
         <!-- Carousel -->
         <ModalElement post={post} related={related}/>
         <!-- Close button -->
@@ -33,6 +33,6 @@
     </div>
     <!-- Close when click outside -->
     <form method="dialog" class="modal-backdrop">
-        <button></button>
+        <button class="invisible"></button>
     </form>
 </dialog>
