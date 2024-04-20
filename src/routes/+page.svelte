@@ -24,13 +24,6 @@
         }
     })();
 
-    // if (typeof data !== 'undefined') {
-    //     setContext('posts', data.posts);
-    //     setContext('projects', data.projects);
-    //     setContext('files', data.files);
-    //     setContext('translations', data.posts_translations);
-    //     setContext('languages', data.languages);
-    // }
 </script>
 
 {#if isLoading}
@@ -42,7 +35,7 @@
 {:else}
     <Navbar>
         <div class="freewall m-2">
-            <Wall data={data} />
+            <Wall posts={data.posts} data={data}/>
         </div>
     </Navbar>
 {/if}

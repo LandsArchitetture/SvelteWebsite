@@ -2,9 +2,12 @@
     import { onMount } from 'svelte';
     import Card from './Card.svelte';
 
+    export let posts;
+
     export let data;
 
     let wall;
+
 
     function resizeBig(wall) {
         wall.reset({
@@ -59,14 +62,13 @@
         });
     });
 
-    let posts = data.posts;
     let post = posts[0];
 
 </script>
 
 <div id="container" class="flex">
-    <!-- <Card data={data} {...post}/> -->
+    <!-- <Card data={data} post={post}/> -->
     {#each posts as post}
-        <Card data={data} {...post} />
+        <Card data={data} post={post} />
     {/each}
 </div>

@@ -11,8 +11,11 @@
     <div class="drawer-content">
 
         <div class="w-full navbar bg-base-300 flex"> 
-
-            <Logo />
+            <div class="flex-1 flex content-start w-fit pl-2 lg:pl-4">
+                <a class="btn btn-ghost text-xl p-0 w-fit" href="/">
+                    <Logo />
+                </a>
+            </div>
 
             <div class="flex-2 hidden lg:flex flex-col">
                 <ul class="flex-1 menu menu-horizontal text-xl">
@@ -20,11 +23,11 @@
                 </ul>
             </div>
 
-            <div class="flex-1 hidden form-control lg:flex items-end">
+            <div class="flex-1 hidden form-control lg:flex items-end p-0 pr-4">
                 <Search />
             </div>
 
-            <div class="flex-1 flex lg:hidden justify-end">
+            <div class="flex-1 flex lg:hidden justify-end p-0">
                 <label for="my-drawer-1" aria-label="open sidebar" class="btn btn-square btn-ghost" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </label>
