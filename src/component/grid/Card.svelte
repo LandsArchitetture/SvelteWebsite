@@ -1,6 +1,4 @@
 <script>
-	import Modal from '../modal/Modal.svelte';
-
 	export let data;
 
 	export let post;
@@ -16,6 +14,8 @@
 	class="brick {post.size} p-0 border-0 rounded-xl hover:shadow-[0_0_20px_10px_rgba(0,0,0,0.7)] overflow-hidden"
 	on:click={() => {
 		window.history.replaceState(null, document.title, '#' + post.project + '.' + index);
+		document.getElementById(post.project.toString() + '.' + index).classList.remove('hidden');
+		document.getElementById(post.project.toString() + '.' + index).style.display = 'block';
 		document.getElementById(post.project).showModal();
 	}}
 >

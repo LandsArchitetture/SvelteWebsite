@@ -6,6 +6,13 @@
 	export let project;
 
 	let related = data.posts.filter((p) => p.project === project);
+
+	function close() {
+		related.forEach((rel, i) => {
+			document.getElementById(project.toString() + '.' + i).classList.add('hidden');
+			document.getElementById(project.toString() + '.' + i).style.display = 'none';
+		});
+	}
 </script>
 
 <dialog id={project} class="modal">
@@ -15,6 +22,7 @@
 		<!-- Close button -->
 		<form method="dialog">
 			<button
+				on:click={close}
 				class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-red-700 scale-150 [text-shadow:_0_0_5px_rgb(0_0_0)]"
 				>✕</button
 			>
@@ -29,6 +37,6 @@
 	</div>
 	<!-- Close when click outside -->
 	<form method="dialog" class="modal-backdrop">
-		<button class="invisible"></button>
+		<button class="invisible" on:click={close}></button>
 	</form>
 </dialog>
