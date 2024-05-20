@@ -7,7 +7,9 @@
 <div class="drawer drawer-end">
 	<input id="my-drawer-1" type="checkbox" class="drawer-toggle" />
 	<div class="drawer-content">
-		<div class="w-full navbar bg-base-300 flex">
+		<div
+			class="w-full navbar bg-base-300 flex sticky top-0 z-10 shadow-[0_5px_2px_0_rgba(0,0,0,0.5)]"
+		>
 			<div class="flex-1 flex content-start w-fit">
 				<a class="btn btn-ghost text-xl p-0 w-fit" href="/">
 					<Logo />

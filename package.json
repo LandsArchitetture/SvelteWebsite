@@ -18,6 +18,7 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "^8.56.0",
 		"autoprefixer": "^10.4.19",
+		"daisyui": "^4.11.1",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
@@ -33,7 +34,6 @@
 	"type": "module",
 	"dependencies": {
 		"@directus/sdk": "^15.1.0",
-		"daisyui": "^4.9.0",
 		"freewall": "^1.0.8",
 		"jquery": "^3.7.1",
 		"tailwind-scrollbar-hide": "^1.1.7"

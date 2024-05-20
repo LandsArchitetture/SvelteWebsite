@@ -23,7 +23,7 @@
 		} catch (error) {
 			console.error('Failed to fetch data:', error);
 		} finally {
-			console.log(data.projects);
+			console.log(data.posts);
 			isLoading = false;
 		}
 	})();

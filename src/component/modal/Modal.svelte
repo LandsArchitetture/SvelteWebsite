@@ -6,24 +6,16 @@
 	export let project;
 
 	let related = data.posts.filter((p) => p.project === project);
-
-	function close() {
-		related.forEach((rel, i) => {
-			document.getElementById(project.toString() + '.' + i).classList.add('hidden');
-			document.getElementById(project.toString() + '.' + i).style.display = 'none';
-		});
-	}
 </script>
 
 <dialog id={project} class="modal">
-	<div class="modal-box flex p-0 w-fit">
+	<div class="modal-box flex p-0 w-fit max-w-[900px] max-h-[600px]">
 		<!-- Carousel -->
-		<Carousel {data} {related} {project} />
+		<Carousel {related} />
 		<!-- Close button -->
 		<form method="dialog">
 			<button
-				on:click={close}
-				class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-red-700 scale-150 [text-shadow:_0_0_5px_rgb(0_0_0)]"
+				class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-red-700 text-2xl [text-shadow:_0_0_5px_rgb(0_0_0)]"
 				>✕</button
 			>
 		</form>
@@ -37,6 +29,6 @@
 	</div>
 	<!-- Close when click outside -->
 	<form method="dialog" class="modal-backdrop">
-		<button class="invisible" on:click={close}></button>
+		<button>✕</button>
 	</form>
 </dialog>

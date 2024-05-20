@@ -1,19 +1,25 @@
 <script>
-	import { onMount } from 'svelte';
-
-	export let data;
-
 	export let related;
 
-	export let project;
+	let image = [];
 
-	// let post = data.posts.find((p) => p.id === data.projects[0].id);
-
-	// export let language = 'en-US';
+	console.log(related);
 
 	const URL = 'https://www.free-lands.com/';
 
 	// const BLACK = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/800px-A_black_image.jpg'
+
+	related.forEach((rel) => {
+		image.push({
+			project: rel.project,
+			id: rel.project.toString() + '.' + related.indexOf(rel),
+			src: getSrc(rel),
+			text: rel.text,
+			link: rel.link,
+			prev: getRef(rel, related.indexOf(rel), -1),
+			next: getRef(rel, related.indexOf(rel))
+		});
+	});
 
 	function getRef(post, i, dir = 1) {
 		let ref = i + dir;
@@ -22,49 +28,28 @@
 		return '#' + post.project.toString() + '.' + ref;
 	}
 
-	onMount(() => {});
-
-	function next(i) {
-		document.getElementById(project.toString() + '.' + i).classList.add('hidden');
-		document.getElementById(project.toString() + '.' + i).style.display = 'none';
-		let j = i + 1;
-		if (j >= related.length) j = 0;
-		onMount(() => {
-			document.getElementById(project.toString() + '.' + j).classList.remove('hidden');
-			document.getElementById(project.toString() + '.' + j).style.display = 'block';
-		});
-	}
-
-	function prev(i) {
-		document.getElementById(project.toString() + '.' + i).classList.add('hidden');
-		document.getElementById(project.toString() + '.' + i).style.display = 'none';
-		let j = i - 1;
-		if (j < 0) j = related.length - 1;
-		onMount(() => {
-			document.getElementById(project.toString() + '.' + j).classList.remove('hidden');
-			document.getElementById(project.toString() + '.' + j).style.display = 'block';
-		});
-	}
-
 	function getSrc(post) {
 		return URL + post.image + '_modal.jpeg';
 	}
 </script>
 
-<div class="relative carousel w-fit">
-	{#each related as rel, i}
-		<div id={project.toString() + '.' + i} class="carousel-item w-fit hidden">
-			<img src={getSrc(rel)} loading="lazy" alt={rel.project} class="w-[200%]aspect-auto" />
-			<p class="absolute bottom-4 left-0 text-white text-xl font-bold p-2">
-				{rel.text ? rel.text : ''}
-			</p>
+<div class="carousel carousel-center relative flex lg:max-w-[900px] max-w-screen w-fit">
+	{#each image as img}
+		<div class="carousel-item relative">
+			<img src={img.src} loading="lazy" alt={img.project} class="lg:w-full aspect-[3/2] w-screen" />
+			{#if img.text}
+				<p class="absolute bottom-4 left-4 text-white text-xl p-2 capitalize">{img.text}</p>
+			{/if}
+			{#if img.link}
+				<button
+					href={img.link}
+					class="btn btn-circle btn-ghost w-auto absolute bottom-4 right-4 text-white text-2xl [text-shadow:_0_0_5px_rgb(0_0_0)]"
+					>🔗</button
+				>
+			{/if}
 			<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-				<button href={getRef(rel, i, -1)} on:click={prev(i)} class="btn btn-circle select-none"
-					>❮</button
-				>
-				<button href={getRef(rel, i)} on:click={next(i)} class="btn btn-circle select-none"
-					>❯</button
-				>
+				<button href={img.prev} class="btn btn-circle">❮</button>
+				<button href={img.next} class="btn btn-circle">❯</button>
 			</div>
 		</div>
 	{/each}

@@ -60,13 +60,10 @@
 			adapt(wall);
 		});
 	});
-
-	// let post = posts[0];
 </script>
 
 <div id="container" class="flex">
-	<!-- <Card data={data} post={post}/> -->
 	{#each posts as post}
-		<Card {data} {post} />
+		<Card {post} />
 	{/each}
 </div>
