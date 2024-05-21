@@ -5,13 +5,13 @@
 
 	export let project;
 
-	let related = data.posts.filter((p) => p.project === project);
+	let posts = data.posts.filter((p) => p.project === project);
 </script>
 
 <dialog id={project} class="modal">
-	<div class="modal-box flex p-0 w-fit max-w-[900px] max-h-[600px]">
+	<div class="modal-box flex p-0 w-fit max-w-fit max-h-fit select-none">
 		<!-- Carousel -->
-		<Carousel {related} />
+		<Carousel {project} {posts} />
 		<!-- Close button -->
 		<form method="dialog">
 			<button

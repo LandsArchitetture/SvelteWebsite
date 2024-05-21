@@ -23,7 +23,6 @@
 		} catch (error) {
 			console.error('Failed to fetch data:', error);
 		} finally {
-			console.log(data.posts);
 			isLoading = false;
 		}
 	})();
@@ -38,7 +37,7 @@
 {:else}
 	<Navbar>
 		<div class="freewall m-2">
-			<Wall posts={data.posts} {data} />
+			<Wall {data} posts={data.posts} />
 			{#each data.projects as proj}
 				<Modal {data} project={proj.id} />
 			{/each}

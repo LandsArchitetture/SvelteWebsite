@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 	import Card from './Card.svelte';
 
-	export let posts;
-
 	export let data;
+
+	export let posts;
 
 	let wall;
 
@@ -64,6 +64,6 @@
 
 <div id="container" class="flex">
 	{#each posts as post}
-		<Card {post} />
+		<Card {data} {post} />
 	{/each}
 </div>

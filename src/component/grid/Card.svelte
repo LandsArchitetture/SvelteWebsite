@@ -1,16 +1,35 @@
 <script>
+	export let data;
+
 	export let post;
+
+	let related = data.posts.filter((p) => p.project === post.project);
 
 	const URL = 'https://www.free-lands.com/';
 
+	let index = related.indexOf(post);
+
 	function openModal() {
 		const modal = document.getElementById(post.project);
+		const carousel = document.getElementById('carousel.' + post.project);
+		const image = document.getElementById('img.' + post.project + '.' + index);
+
+		if (window.innerWidth > image.naturalWidth) {
+			carousel.style.maxWidth = image.naturalWidth + 'px';
+			carousel.style.maxHeight = image.naturalHeight + 'px';
+		} else {
+			carousel.style.maxWidth = window.innerWidth + 'px';
+			carousel.style.maxHeight = (2 * image.width) / 3 + 'px';
+		}
+
 		modal.showModal();
+
+		window.location.hash = post.project + '.' + index;
 	}
 </script>
 
 <button
-	class="brick {post.size} p-0 border-0 rounded-xl hover:shadow-[0_0_20px_10px_rgba(0,0,0,0.7)] overflow-hidden"
+	class="brick {post.size} p-0 border-0 rounded-xl hover:shadow-[0_0_20px_10px_rgba(0,0,0,0.7)] hover:scale-[101%] overflow-hidden"
 	on:click={openModal}
 >
 	<img
