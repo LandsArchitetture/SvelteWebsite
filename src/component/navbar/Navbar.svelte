@@ -23,7 +23,7 @@
 			</div>
 
 			<div class="flex-1 hidden form-control lg:flex items-end p-0">
-				<Search />
+				<Search on:filter />
 			</div>
 
 			<div class="flex-1 flex lg:hidden justify-end p-0">
@@ -52,7 +52,7 @@
 		<label for="my-drawer-1" aria-label="close sidebar" class="drawer-overlay"></label>
 		<ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
 			<Menu />
-			<Search />
+			<Search on:filter />
 		</ul>
 	</div>
 </div>

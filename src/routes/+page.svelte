@@ -1,5 +1,4 @@
 <script>
-	// import { setContext } from "svelte";
 	import Wall from '../component/grid/Wall.svelte';
 	import Modal from '../component/modal/Modal.svelte';
 	import Navbar from '../component/navbar/Navbar.svelte';
@@ -7,6 +6,8 @@
 
 	let isLoading = true;
 	let data = undefined;
+	let all_posts = [];
+	let filtered = [];
 
 	(async () => {
 		try {
@@ -20,12 +21,37 @@
 			const languages = await directus.request(readItems('languages', { limit: -1 }));
 
 			data = { posts, projects, files, posts_translations, languages };
+			all_posts = data.posts;
+			filtered = all_posts;
 		} catch (error) {
 			console.error('Failed to fetch data:', error);
 		} finally {
 			isLoading = false;
 		}
 	})();
+
+	function filterPosts(posts, filter) {
+		filtered = posts.filter((post) => {
+			if (post.location.toLowerCase().includes(filter)) {
+				return post;
+			} else if (post.project.toLowerCase().includes(filter)) {
+				return post;
+			} else if (post.text && post.text.toLowerCase().includes(filter)) {
+				return post;
+			} else if (post.tags && post.tags.some((tag) => tag.toLowerCase().includes(filter))) {
+				return post;
+			}
+		});
+	}
+
+	function handleFilter(event) {
+		let filter = event.detail.text.toLowerCase();
+		if (filter === '') {
+			filtered = all_posts;
+		} else if (all_posts.length > 0) {
+			filterPosts(all_posts, filter);
+		}
+	}
 </script>
 
 {#if isLoading}
@@ -35,9 +61,9 @@
 		</div>
 	</div>
 {:else}
-	<Navbar>
+	<Navbar on:filter={handleFilter}>
 		<div class="freewall m-2">
-			<Wall {data} posts={data.posts} />
+			<Wall {data} posts={filtered} />
 			{#each data.projects as proj}
 				<Modal {data} project={proj.id} />
 			{/each}

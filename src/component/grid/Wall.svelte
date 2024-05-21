@@ -59,6 +59,10 @@
 		window.addEventListener('resize', (event) => {
 			adapt(wall);
 		});
+
+		document.getElementById('search').addEventListener('input', (event) => {
+			adapt(wall);
+		});
 	});
 </script>
 
