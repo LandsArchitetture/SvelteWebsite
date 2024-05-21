@@ -13,8 +13,8 @@
 			selector: '.brick',
 			cellW: 200,
 			cellH: 200,
-			gutterY: 5,
-			gutterX: 5
+			gutterY: 10,
+			gutterX: 10
 		});
 		wall.fixSize({ block: '.1x1', width: 200, height: 200 });
 		wall.fixSize({ block: '.2x1', width: 200, height: 400 });
@@ -30,8 +30,8 @@
 			selector: '.brick',
 			cellW: 100,
 			cellH: 100,
-			gutterY: 2,
-			gutterX: 2
+			gutterY: 5,
+			gutterX: 5
 		});
 
 		wall.fixSize({ block: '.1x1', width: 100, height: 100 });

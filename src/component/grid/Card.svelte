@@ -29,7 +29,7 @@
 </script>
 
 <button
-	class="brick {post.size} p-0 border-0 rounded-xl hover:shadow-[0_0_20px_10px_rgba(0,0,0,0.7)] hover:scale-[101%] overflow-hidden"
+	class="brick {post.size} p-0 border-0 rounded-xl hover:shadow-[0_0_20px_10px_rgba(0,0,0,0.7)] hover:scale-[103%] overflow-hidden"
 	on:click={openModal}
 >
 	<img
