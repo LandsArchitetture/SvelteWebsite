@@ -48,7 +48,7 @@
 
 	<div class="drawer-side">
 		<label for="my-drawer-1" aria-label="close sidebar" class="drawer-overlay"></label>
-		<ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+		<ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content pt-20">
 			<Menu />
 			<Search on:filter />
 		</ul>
