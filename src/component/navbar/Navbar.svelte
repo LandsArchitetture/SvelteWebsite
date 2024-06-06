@@ -11,14 +11,12 @@
 			class="w-full navbar bg-base-300 flex sticky top-0 z-10 shadow-[0_5px_2px_0_rgba(0,0,0,0.5)]"
 		>
 			<div class="flex-1 flex content-start w-fit">
-				<a class="btn btn-ghost text-xl p-0 w-fit" href="/">
-					<Logo />
-				</a>
+				<Logo on:filter />
 			</div>
 
 			<div class="flex-2 hidden lg:flex flex-col">
 				<ul class="flex-1 menu menu-horizontal text-xl">
-					<Menu />
+					<Menu on:filter />
 				</ul>
 			</div>
 

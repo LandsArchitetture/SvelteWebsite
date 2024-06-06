@@ -8,6 +8,7 @@
 	let data = undefined;
 	let all_posts = [];
 	let filtered = [];
+	let TYPES = ['progetto', 'concorso', 'edificio', 'varie'];
 
 	(async () => {
 		try {
@@ -26,6 +27,15 @@
 		} catch (error) {
 			console.error('Failed to fetch data:', error);
 		} finally {
+			data.projects.forEach((proj) => {
+				proj['posts'] = [];
+				data.posts.forEach((post) => {
+					if (post.project === proj.id) {
+						proj.posts.push(post);
+					}
+				});
+			});
+			console.log(data);
 			isLoading = false;
 		}
 	})();
@@ -44,11 +54,28 @@
 		});
 	}
 
+	function specialFilter(filter) {
+		let filterProjects = data.projects.filter((proj) =>
+			proj.type.forEach((type) => type.toLowerCase() === filter)
+		);
+		let filterPosts = [];
+		all_posts.forEach((post) => {
+			filterProjects.forEach((proj) => {
+				if (post.project === proj.id) {
+					filterPosts.push(post);
+				}
+			});
+		});
+		filtered = filterPosts;
+	}
+
 	function handleFilter(event) {
 		let filter = event.detail.text.toLowerCase();
-		if (filter === '') {
+		if (filter == '') {
 			filtered = all_posts;
-		} else if (all_posts.length > 0) {
+		} else if (TYPES.includes(filter)) {
+			specialFilter(filter);
+		} else {
 			filterPosts(all_posts, filter);
 		}
 	}
@@ -62,10 +89,10 @@
 	</div>
 {:else}
 	<Navbar on:filter={handleFilter}>
-		<div class="freewall m-2">
-			<Wall {data} posts={filtered} />
+		<div class="freewall m-2 select-none">
+			<Wall posts={filtered} projects={data.projects} />
 			{#each data.projects as proj}
-				<Modal {data} project={proj.id} />
+				<Modal project={proj} />
 			{/each}
 		</div>
 	</Navbar>

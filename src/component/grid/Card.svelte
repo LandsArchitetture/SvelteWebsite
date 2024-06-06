@@ -1,15 +1,14 @@
 <script>
-	export let data;
-
 	export let post;
 
-	let related = data.posts.filter((p) => p.project === post.project);
+	export let project;
 
 	const URL = 'https://www.free-lands.com/';
 
-	let index = related.indexOf(post);
+	let index = project.posts.indexOf(post);
 
 	function openModal() {
+		index = project.posts.indexOf(post);
 		const modal = document.getElementById(post.project);
 		const carousel = document.getElementById('carousel.' + post.project);
 		const image = document.getElementById('img.' + post.project + '.' + index);
@@ -19,11 +18,12 @@
 			carousel.style.maxHeight = image.naturalHeight + 'px';
 		} else {
 			carousel.style.maxWidth = window.innerWidth + 'px';
-			carousel.style.maxHeight = (2 * image.width) / 3 + 'px';
+			carousel.style.maxHeight = (2 * window.innerWidth) / 3 + 'px';
 		}
 
 		modal.showModal();
 
+		window.location.hash = '';
 		window.location.hash = post.project + '.' + index;
 	}
 </script>

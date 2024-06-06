@@ -3,30 +3,28 @@
 
 	export let project;
 
-	export let posts;
-
 	let images = [];
 
 	const URL = 'https://www.free-lands.com/';
 
 	// const BLACK = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/800px-A_black_image.jpg'
 
-	posts.forEach((post) => {
+	project.posts.forEach((post) => {
 		images.push({
-			id: project.toString() + '.' + posts.indexOf(post),
+			id: project.id.toString() + '.' + project.posts.indexOf(post),
 			src: getSrc(post),
 			text: post.text,
 			link: post.link,
-			prev: getRef(posts.indexOf(post), -1),
-			next: getRef(posts.indexOf(post))
+			prev: getRef(project.posts.indexOf(post), -1),
+			next: getRef(project.posts.indexOf(post))
 		});
 	});
 
 	function getRef(i, dir = 1) {
 		let index = i + dir;
-		if (index < 0) index = posts.length - 1;
-		if (index >= posts.length) index = 0;
-		return '#' + project.toString() + '.' + index;
+		if (index < 0) index = project.posts.length - 1;
+		if (index >= project.posts.length) index = 0;
+		return '#' + project.id.toString() + '.' + index;
 	}
 
 	function getSrc(post) {
@@ -34,14 +32,14 @@
 	}
 
 	function setSize(dir) {
-		let carousel = document.getElementById('carousel.' + project);
+		let carousel = document.getElementById('carousel.' + project.id);
 		let index = Number(window.location.href.split('#')[1].split('.')[1]);
 
 		index = index + dir;
-		if (index < 0) index = posts.length - 1;
-		if (index >= posts.length) index = 0;
+		if (index < 0) index = project.posts.length - 1;
+		if (index >= project.posts.length) index = 0;
 
-		let image = document.getElementById('img.' + project + '.' + index);
+		let image = document.getElementById('img.' + project.id + '.' + index);
 
 		if (window.innerWidth > image.naturalWidth) {
 			carousel.style.maxWidth = image.naturalWidth + 'px';
@@ -60,12 +58,12 @@
 </script>
 
 <div
-	id={'carousel.' + project}
+	id={'carousel.' + project.id}
 	class="carousel relative transition-all duration-200 lg:max-w-[900px] max-h-fit max-w-screen flex w-fit"
 >
 	{#each images as image}
 		<div id={image.id} class="carousel-item relative w-fit">
-			<img id={'img.' + image.id} src={image.src} loading="lazy" alt={project} class="w-full" />
+			<img id={'img.' + image.id} src={image.src} loading="lazy" alt={project.id} class="w-full" />
 			{#if image.text}
 				<p class="absolute bottom-4 left-4 text-white text-xl p-2 capitalize">{image.text}</p>
 			{/if}

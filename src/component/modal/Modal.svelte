@@ -1,17 +1,13 @@
 <script>
 	import Carousel from './Carousel.svelte';
 
-	export let data;
-
 	export let project;
-
-	let posts = data.posts.filter((p) => p.project === project);
 </script>
 
-<dialog id={project} class="modal">
+<dialog id={project.id} class="modal">
 	<div class="modal-box flex p-0 w-fit max-w-fit max-h-fit select-none">
 		<!-- Carousel -->
-		<Carousel {project} {posts} />
+		<Carousel {project} />
 		<!-- Close button -->
 		<form method="dialog">
 			<button
@@ -23,7 +19,7 @@
 		<p
 			class="modalHeader text-white absolute top-4 left-4 font-bold text-3xl [text-shadow:_0_0_5px_rgb(0_0_0)] select-none"
 		>
-			{project ? project : ''}
+			{project.id ? project.id : ''}
 		</p>
 		<!-- Carousel -->
 	</div>
