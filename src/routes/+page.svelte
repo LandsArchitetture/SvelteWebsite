@@ -55,8 +55,13 @@
 	}
 
 	function specialFilter(filter) {
-		let filterProjects = data.projects.filter((proj) =>
-			proj.type.forEach((type) => type.toLowerCase() === filter)
+		let filterProjects = [];
+		data.projects.filter((proj) =>
+			proj.type.forEach((type) => {
+				if (type.toLowerCase() == filter) {
+					filterProjects.push(proj);
+				}
+			})
 		);
 		let filterPosts = [];
 		all_posts.forEach((post) => {
