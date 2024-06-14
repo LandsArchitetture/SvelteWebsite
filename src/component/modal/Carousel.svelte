@@ -70,7 +70,7 @@
 			{#if image.link}
 				<a
 					href={image.link}
-					class="btn btn-circle btn-ghost w-auto absolute bottom-4 right-4 text-white text-2xl [text-shadow:_0_0_5px_rgb(0_0_0)]"
+					class="btn btn-circle w-auto absolute bottom-4 right-4 text-white text-2xl [text-shadow:_0_0_5px_rgb(0_0_0)]"
 					>🔗</a
 				>
 			{/if}

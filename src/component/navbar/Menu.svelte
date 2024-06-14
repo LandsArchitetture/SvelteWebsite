@@ -33,7 +33,7 @@
 			<li><button id="comp" on:click={competitions}>Competitions</button></li>
 			<li><button id="buld" on:click={buildings}>Buildings</button></li>
 			<li><button id="misc" on:click={miscellaneous}>Miscellaneous</button></li>
-			<div class="divider my-0"></div>
+			<div class="divider my-0 select-none"></div>
 			<li><AboutUs /></li>
 		</ul>
 	</details>

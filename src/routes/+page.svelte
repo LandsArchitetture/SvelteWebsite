@@ -2,6 +2,8 @@
 	import Wall from '../component/grid/Wall.svelte';
 	import Modal from '../component/modal/Modal.svelte';
 	import Navbar from '../component/navbar/Navbar.svelte';
+	import AboutModal from '../component/navbar/menu/AboutModal.svelte';
+	import ContactModal from '../component/navbar/menu/ContactModal.svelte';
 	import { createDirectus, rest, readItems, readFiles } from '@directus/sdk';
 
 	let isLoading = true;
@@ -99,6 +101,8 @@
 			{#each data.projects as proj}
 				<Modal project={proj} />
 			{/each}
+			<AboutModal />
+			<ContactModal />
 		</div>
 	</Navbar>
 {/if}

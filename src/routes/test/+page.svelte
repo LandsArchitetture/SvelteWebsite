@@ -1,107 +1,102 @@
 <script>
-	let list = [
-		{
-			id: 'slide1',
-			link: 'https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.jpg',
-			prev: '#slide4',
-			next: '#slide2'
-		},
-		{
-			id: 'slide2',
-			link: 'https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.jpg',
-			prev: '#slide1',
-			next: '#slide3'
-		},
-		{
-			id: 'slide3',
-			link: 'https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg',
-			prev: '#slide2',
-			next: '#slide4'
-		},
-		{
-			id: 'slide4',
-			link: 'https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.jpg',
-			prev: '#slide3',
-			next: '#slide1'
-		}
-	];
+	import Wall from '../../component/grid/Wall.svelte';
+	import Modal from '../../component/modal/Modal.svelte';
+	import Navbar from '../../component/navbar/Navbar.svelte';
+	import AboutModal from '../../component/navbar/menu/AboutModal.svelte';
+	import { createDirectus, rest, readItems, readFiles } from '@directus/sdk';
 
-	let list2 = [
-		{
-			id: 's1',
-			link: 'https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.jpg',
-			prev: '#s4',
-			next: '#s2'
-		},
-		{
-			id: 's2',
-			link: 'https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.jpg',
-			prev: '#s1',
-			next: '#s3'
-		},
-		{
-			id: 's3',
-			link: 'https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg',
-			prev: '#s2',
-			next: '#s4'
-		},
-		{
-			id: 's4',
-			link: 'https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.jpg',
-			prev: '#s3',
-			next: '#s1'
+	let isLoading = true;
+	let data = undefined;
+	let all_posts = [];
+	let filtered = [];
+	let TYPES = ['progetto', 'concorso', 'edificio', 'varie'];
+
+	(async () => {
+		try {
+			const directus = createDirectus('https://admin.lands.swiss/').with(rest());
+			const posts = await directus.request(readItems('posts', { sort: '-date', limit: -1 }));
+			const projects = await directus.request(readItems('projects', { limit: -1 }));
+			const files = await directus.request(readFiles({ limit: -1 }));
+			const posts_translations = await directus.request(
+				readItems('posts_translations', { limit: -1 })
+			);
+			const languages = await directus.request(readItems('languages', { limit: -1 }));
+
+			data = { posts, projects, files, posts_translations, languages };
+			all_posts = data.posts;
+			filtered = all_posts;
+		} catch (error) {
+			console.error('Failed to fetch data:', error);
+		} finally {
+			data.projects.forEach((proj) => {
+				proj['posts'] = [];
+				data.posts.forEach((post) => {
+					if (post.project === proj.id) {
+						proj.posts.push(post);
+					}
+				});
+			});
+			console.log(data);
+			isLoading = false;
 		}
-	];
+	})();
+
+	function filterPosts(posts, filter) {
+		filtered = posts.filter((post) => {
+			if (post.location.toLowerCase().includes(filter)) {
+				return post;
+			} else if (post.project.toLowerCase().includes(filter)) {
+				return post;
+			} else if (post.text && post.text.toLowerCase().includes(filter)) {
+				return post;
+			} else if (post.tags && post.tags.some((tag) => tag.toLowerCase().includes(filter))) {
+				return post;
+			}
+		});
+	}
+
+	function specialFilter(filter) {
+		let filterProjects = [];
+		data.projects.filter((proj) =>
+			proj.type.forEach((type) => {
+				if (type.toLowerCase() == filter) {
+					filterProjects.push(proj);
+				}
+			})
+		);
+		let filterPosts = [];
+		all_posts.forEach((post) => {
+			filterProjects.forEach((proj) => {
+				if (post.project === proj.id) {
+					filterPosts.push(post);
+				}
+			});
+		});
+		filtered = filterPosts;
+	}
+
+	function handleFilter(event) {
+		let filter = event.detail.text.toLowerCase();
+		if (filter == '') {
+			filtered = all_posts;
+		} else if (TYPES.includes(filter)) {
+			specialFilter(filter);
+		} else {
+			filterPosts(all_posts, filter);
+		}
+	}
 </script>
 
-<button class="btn" onclick="my_modal_2.showModal()">open modal</button>
-
-<button class="btn" onclick="my_modal_3.showModal()">open modal</button>
-
-<dialog id="my_modal_3" class="modal">
-	<div class="modal-box w-fit p-0">
-		<div class="carousel w-fit">
-			{#each list2 as l}
-				<div id={l.id} class="carousel-item relative w-fit">
-					<img src={l.link} class="w-full" alt="ciao" />
-					<div
-						class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-					>
-						<a href={l.prev} class="btn btn-circle">❮</a>
-						<a href={l.next} class="btn btn-circle">❯</a>
-					</div>
-				</div>
-			{/each}
+{#if isLoading}
+	<div class="h-screen flex justify-center items-center">
+		<div class="loading loading-lg">
+			<span class="loading loading-dots loading-lg"></span>
 		</div>
-		<form method="dialog">
-			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-		</form>
 	</div>
-	<form method="dialog" class="modal-backdrop">
-		<button>close</button>
-	</form>
-</dialog>
-
-<dialog id="my_modal_2" class="modal">
-	<div class="modal-box w-fit p-0">
-		<div class="carousel w-fit">
-			{#each list as l}
-				<div id={l.id} class="carousel-item relative w-fit">
-					<img src={l.link} class="w-full" alt="ciao" />
-					<div
-						class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-					>
-						<a href={l.prev} class="btn btn-circle">❮</a>
-						<a href={l.next} class="btn btn-circle">❯</a>
-					</div>
-				</div>
-			{/each}
+{:else}
+	<Navbar on:filter={handleFilter}>
+		<div class="freewall m-2 select-none">
+			<AboutModal />
 		</div>
-		<form method="dialog">
-			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-		</form>
-	</div>
-	<form method="dialog" class="modal-backdrop">
-		<button>close</button>
-	</form>
-</dialog>
+	</Navbar>
+{/if}
