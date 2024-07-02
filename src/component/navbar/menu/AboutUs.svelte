@@ -1,4 +1,7 @@
 <script>
+	/**
+	 * Open the About Us modal when called
+	 */
 	function openModal() {
 		let index = 0;
 		const modal = document.getElementById('AboutUs');

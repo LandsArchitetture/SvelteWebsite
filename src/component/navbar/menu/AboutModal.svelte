@@ -151,6 +151,10 @@
 		}
 	];
 
+	/**
+	 * Set the size of the carousel according to the image size
+	 * @param dir The direction of the carousel (1 for next, -1 for previous)
+	 */
 	function setSize(dir) {
 		let carousel = document.getElementById('carousel.AboutUs');
 		let index = Number(window.location.href.split('#')[1].split('.')[1]);
@@ -170,6 +174,10 @@
 		}
 	}
 
+	/**
+	 * Handle the resize of the carousel when called
+	 * @param dir The direction of the carousel (1 for next, -1 for previous)
+	 */
 	function handleSetSize(dir) {
 		return (event) => {
 			setSize(dir);
@@ -210,7 +218,7 @@
 					<a href={'#' + 'AboutUs.1'} on:click={handleSetSize(1)} class="btn btn-circle">❯</a>
 				</div>
 			</div>
-			<!-- All the slides -->
+			<!-- Keyword Slides -->
 			{#each KEYWORDS as keyword}
 				<div id={keyword.id} class="carousel-item relative w-fit">
 					<img

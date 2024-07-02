@@ -6,18 +6,30 @@
 
 	const dispatch = createEventDispatcher();
 
+	/**
+	 * Filter the projects
+	 */
 	function project() {
 		dispatch('filter', { text: 'progetto' });
 	}
 
+	/**
+	 * Filter the competitions
+	 */
 	function competitions() {
 		dispatch('filter', { text: 'concorso' });
 	}
 
+	/**
+	 * Filter the buildings
+	 */
 	function buildings() {
 		dispatch('filter', { text: 'edificio' });
 	}
 
+	/**
+	 * Filter the miscellaneous
+	 */
 	function miscellaneous() {
 		dispatch('filter', { text: 'varie' });
 	}

@@ -5,6 +5,10 @@
 
 	let filter = '';
 
+	/**
+	 * Filter all the images according to filter
+	 * @param filter The filter to apply
+	 */
 	function transmit() {
 		dispatch('filter', { text: filter });
 	}

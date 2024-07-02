@@ -3,6 +3,9 @@
 
 	const dispatch = createEventDispatcher();
 
+	/**
+	 * Remove all filters when called
+	 */
 	function filter() {
 		dispatch('filter', { text: '' });
 	}

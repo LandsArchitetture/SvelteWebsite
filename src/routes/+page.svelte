@@ -12,6 +12,12 @@
 	let filtered = [];
 	let TYPES = ['progetto', 'concorso', 'edificio', 'varie'];
 
+	/**
+	 * Fetch the data from the Directus API and reorder them in
+	 * @param data The data fetched from the Directus API
+	 * @param all_posts The list of all the posts
+	 * @param filtered The list of the filtered posts
+	 */
 	(async () => {
 		try {
 			const directus = createDirectus('https://admin.lands.swiss/').with(rest());
@@ -42,6 +48,11 @@
 		}
 	})();
 
+	/**
+	 * Filter the posts according to the filter
+	 * @param filter The filter to apply
+	 * @param posts The list of all the posts
+	 */
 	function filterPosts(posts, filter) {
 		filtered = posts.filter((post) => {
 			if (post.location.toLowerCase().includes(filter)) {
@@ -56,6 +67,10 @@
 		});
 	}
 
+	/**
+	 * Filter the projects according to the corresponding string in TYPES
+	 * @param filter The filter to apply
+	 */
 	function specialFilter(filter) {
 		let filterProjects = [];
 		data.projects.filter((proj) =>
@@ -76,6 +91,10 @@
 		filtered = filterPosts;
 	}
 
+	/**
+	 * Handle the filter event by choosing the right filter
+	 * @param event The event to handle
+	 */
 	function handleFilter(event) {
 		let filter = event.detail.text.toLowerCase();
 		if (filter == '') {

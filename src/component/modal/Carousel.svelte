@@ -1,18 +1,23 @@
 <script>
-	import { onMount } from 'svelte';
-
 	export let project;
-
-	let images = [];
 
 	const URL = 'https://www.free-lands.com/';
 
-	// const BLACK = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/800px-A_black_image.jpg'
+	let images = [];
 
+	/**
+	 * Add all images of the same project to the images array
+	 * @param id The id of the project ('000.0')
+	 * @param src The source of the image ('https://www.free-lands.com/000.0_modal.jpeg')
+	 * @param text The description of the image ('A small description of the image')
+	 * @param link The external referneces link to the image ('https://www.wikipedia.com/')
+	 * @param prev The id of the previous image of the project ('#000.0')
+	 * @param next The id of the next image of the project ('#000.0')
+	 * */
 	project.posts.forEach((post) => {
 		images.push({
 			id: project.id.toString() + '.' + project.posts.indexOf(post),
-			src: getSrc(post),
+			src: getSrc(post.image),
 			text: post.text,
 			link: post.link,
 			prev: getRef(project.posts.indexOf(post), -1),
@@ -20,6 +25,11 @@
 		});
 	});
 
+	/**
+	 * Get the reference of the next or previous image
+	 * @param i The index of the current image
+	 * @param dir The direction of the reference (1 for next, -1 for previous)
+	 */
 	function getRef(i, dir = 1) {
 		let index = i + dir;
 		if (index < 0) index = project.posts.length - 1;
@@ -27,10 +37,18 @@
 		return '#' + project.id.toString() + '.' + index;
 	}
 
-	function getSrc(post) {
-		return URL + post.image + '_modal.jpeg';
+	/**
+	 * Get the source of the image
+	 * @param img The image name
+	 */
+	function getSrc(img) {
+		return URL + img + '_modal.jpeg';
 	}
 
+	/**
+	 * Set the size of the carousel according to the image size
+	 * @param dir The direction of the carousel (1 for next, -1 for previous)
+	 */
 	function setSize(dir) {
 		let carousel = document.getElementById('carousel.' + project.id);
 		let index = Number(window.location.href.split('#')[1].split('.')[1]);
@@ -50,6 +68,10 @@
 		}
 	}
 
+	/**
+	 * Handle the resize of the carousel when called
+	 * @param dir The direction of the carousel (1 for next, -1 for previous)
+	 */
 	function handleSetSize(dir) {
 		return (event) => {
 			setSize(dir);

@@ -1,4 +1,7 @@
 <script>
+	/**
+	 * Open the Contact modal when called
+	 */
 	function showModal() {
 		document.getElementById('Contact').showModal();
 	}

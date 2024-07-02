@@ -21,7 +21,6 @@
 		>
 			{project.id ? project.id : ''}
 		</p>
-		<!-- Carousel -->
 	</div>
 	<!-- Close when click outside -->
 	<form method="dialog" class="modal-backdrop">
