@@ -16,7 +16,7 @@
 
 			<div class="flex-2 hidden lg:flex flex-col">
 				<ul class="flex-1 menu menu-horizontal text-xl">
-					<Menu on:filter />
+					<Menu on:filter on:language />
 				</ul>
 			</div>
 

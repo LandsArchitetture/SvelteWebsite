@@ -51,4 +51,4 @@
 	</details>
 </li>
 <li class="font-bold"><Contact /></li>
-<li><Language /></li>
+<li><Language on:language /></li>

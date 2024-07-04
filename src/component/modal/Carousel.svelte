@@ -1,6 +1,10 @@
 <script>
 	export let project;
 
+	export let language;
+
+	export let translations;
+
 	const URL = 'https://www.free-lands.com/';
 
 	let images = [];
@@ -18,12 +22,28 @@
 		images.push({
 			id: project.id.toString() + '.' + project.posts.indexOf(post),
 			src: getSrc(post.image),
-			text: post.text,
+			text: getTranslation(post),
 			link: post.link,
 			prev: getRef(project.posts.indexOf(post), -1),
 			next: getRef(project.posts.indexOf(post))
 		});
 	});
+
+	/**
+	 * Get the translation of the post
+	 * @param post The post to translate
+	 */
+	function getTranslation(post) {
+		let text = undefined;
+		post.translations.forEach((number) => {
+			translations.forEach((t) => {
+				if (number === t.id && t.languages_id === language) {
+					text = t.text;
+				}
+			});
+		});
+		return text;
+	}
 
 	/**
 	 * Get the reference of the next or previous image
@@ -85,17 +105,16 @@
 >
 	{#each images as image}
 		<div id={image.id} class="carousel-item relative w-fit">
+			<!-- Image -->
 			<img id={'img.' + image.id} src={image.src} loading="lazy" alt={project.id} class="w-full" />
-			{#if image.text}
-				<p class="absolute bottom-4 left-4 text-white text-xl p-2 capitalize">{image.text}</p>
-			{/if}
-			{#if image.link}
-				<a
-					href={image.link}
-					class="btn btn-circle w-auto absolute bottom-4 right-4 text-white text-2xl [text-shadow:_0_0_5px_rgb(0_0_0)]"
-					>🔗</a
-				>
-			{/if}
+			<!-- Text -->
+			<a
+				href={image.link}
+				target="_blank"
+				id={'text.' + image.id}
+				class="text absolute bottom-4 left-4 text-white text-xl p-2 capitalize">{image.text}</a
+			>
+			<!-- Navigation -->
 			<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
 				<a href={image.prev} on:click={handleSetSize(-1)} class="btn btn-circle">❮</a>
 				<a href={image.next} on:click={handleSetSize(1)} class="btn btn-circle">❯</a>

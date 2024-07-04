@@ -8,6 +8,7 @@
 
 	let isLoading = true;
 	let data = undefined;
+	let language = 'en-US';
 	let all_posts = [];
 	let filtered = [];
 	let TYPES = ['progetto', 'concorso', 'edificio', 'varie'];
@@ -105,6 +106,11 @@
 			filterPosts(all_posts, filter);
 		}
 	}
+
+	function changeLanguage(event) {
+		language = event.detail.text;
+		console.log(language);
+	}
 </script>
 
 {#if isLoading}
@@ -114,11 +120,11 @@
 		</div>
 	</div>
 {:else}
-	<Navbar on:filter={handleFilter}>
+	<Navbar on:filter={handleFilter} on:language={changeLanguage}>
 		<div class="freewall m-2 select-none">
 			<Wall posts={filtered} projects={data.projects} />
 			{#each data.projects as proj}
-				<Modal project={proj} />
+				<Modal project={proj} {language} translations={data.posts_translations} />
 			{/each}
 			<AboutModal />
 			<ContactModal />
