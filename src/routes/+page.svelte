@@ -109,7 +109,6 @@
 
 	function changeLanguage(event) {
 		language = event.detail.text;
-		console.log(language);
 	}
 </script>
 

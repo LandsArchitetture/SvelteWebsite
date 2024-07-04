@@ -7,42 +7,47 @@
 
 	const URL = 'https://www.free-lands.com/';
 
-	let images = [];
-
-	/**
-	 * Add all images of the same project to the images array
-	 * @param id The id of the project ('000.0')
-	 * @param src The source of the image ('https://www.free-lands.com/000.0_modal.jpeg')
-	 * @param text The description of the image ('A small description of the image')
-	 * @param link The external referneces link to the image ('https://www.wikipedia.com/')
-	 * @param prev The id of the previous image of the project ('#000.0')
-	 * @param next The id of the next image of the project ('#000.0')
-	 * */
-	project.posts.forEach((post) => {
-		images.push({
+	$: images = project.posts.map((post) => {
+		return {
 			id: project.id.toString() + '.' + project.posts.indexOf(post),
 			src: getSrc(post.image),
 			text: getTranslation(post),
+			post: post,
 			link: post.link,
 			prev: getRef(project.posts.indexOf(post), -1),
 			next: getRef(project.posts.indexOf(post))
-		});
+		};
 	});
+
+	let currentLanguage = language;
+
+	/**
+	 * Retranslate the post when the language changes
+	 */
+	$: if (language !== currentLanguage) {
+		images.forEach((image) => {
+			image.text = getTranslation(image.post);
+		});
+		for (let i = 0; i < images.length; i++) {
+			let text = document.getElementById('text.' + images[i].id);
+			text.innerHTML = images[i].text;
+		}
+		currentLanguage = language;
+	}
 
 	/**
 	 * Get the translation of the post
 	 * @param post The post to translate
 	 */
 	function getTranslation(post) {
-		let text = undefined;
-		post.translations.forEach((number) => {
-			translations.forEach((t) => {
+		let translation = translations.find((t) => {
+			return post.translations.find((number) => {
 				if (number === t.id && t.languages_id === language) {
-					text = t.text;
+					return t;
 				}
 			});
 		});
-		return text;
+		return translation ? translation.text : undefined;
 	}
 
 	/**
@@ -108,12 +113,22 @@
 			<!-- Image -->
 			<img id={'img.' + image.id} src={image.src} loading="lazy" alt={project.id} class="w-full" />
 			<!-- Text -->
-			<a
-				href={image.link}
-				target="_blank"
-				id={'text.' + image.id}
-				class="text absolute bottom-4 left-4 text-white text-xl p-2 capitalize">{image.text}</a
-			>
+			{#if image.link}
+				<a
+					href={image.link}
+					target="_blank"
+					id={'text.' + image.id}
+					class="absolute bottom-4 left-4 text-xl p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)] hover:text-red-500 hover:underline"
+					>{image.text}</a
+				>
+			{:else}
+				<p
+					id={'text.' + image.id}
+					class="absolute bottom-4 left-4 text-xl p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)]"
+				>
+					{image.text}
+				</p>
+			{/if}
 			<!-- Navigation -->
 			<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
 				<a href={image.prev} on:click={handleSetSize(-1)} class="btn btn-circle">❮</a>
