@@ -1,4 +1,5 @@
 <script>
+	import axios from 'axios';
 	import Wall from '../component/grid/Wall.svelte';
 	import Modal from '../component/modal/Modal.svelte';
 	import Navbar from '../component/navbar/Navbar.svelte';
@@ -7,7 +8,7 @@
 	import { createDirectus, rest, readItems, readFiles } from '@directus/sdk';
 
 	let isLoading = true;
-	let data = undefined;
+	let data;
 	let language = 'en-US';
 	let all_posts = [];
 	let filtered = [];
@@ -29,8 +30,12 @@
 				readItems('posts_translations', { limit: -1 })
 			);
 			const languages = await directus.request(readItems('languages', { limit: -1 }));
+			const raw_navbar_translations = await axios.get(
+				'https://www.free-lands.com/Translations.json'
+			);
+			const navbar_translations = raw_navbar_translations.data;
 
-			data = { posts, projects, files, posts_translations, languages };
+			data = { posts, projects, files, posts_translations, languages, navbar_translations };
 			all_posts = data.posts;
 			filtered = all_posts;
 		} catch (error) {
@@ -119,13 +124,18 @@
 		</div>
 	</div>
 {:else}
-	<Navbar on:filter={handleFilter} on:language={changeLanguage}>
+	<Navbar
+		on:filter={handleFilter}
+		on:translate={changeLanguage}
+		{language}
+		translations={data.navbar_translations.Navbar}
+	>
 		<div class="freewall m-2 select-none">
 			<Wall posts={filtered} projects={data.projects} />
 			{#each data.projects as proj}
 				<Modal project={proj} {language} translations={data.posts_translations} />
 			{/each}
-			<AboutModal />
+			<AboutModal {language} translations={data.navbar_translations.AboutUs} />
 			<ContactModal />
 		</div>
 	</Navbar>

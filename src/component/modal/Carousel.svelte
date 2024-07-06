@@ -15,7 +15,8 @@
 			post: post,
 			link: post.link,
 			prev: getRef(project.posts.indexOf(post), -1),
-			next: getRef(project.posts.indexOf(post))
+			next: getRef(project.posts.indexOf(post)),
+			date: post.date
 		};
 	});
 
@@ -75,21 +76,36 @@
 	 * @param dir The direction of the carousel (1 for next, -1 for previous)
 	 */
 	function setSize(dir) {
-		let carousel = document.getElementById('carousel.' + project.id);
+		const carousel = document.getElementById('carousel.' + project.id);
 		let index = Number(window.location.href.split('#')[1].split('.')[1]);
 
 		index = index + dir;
 		if (index < 0) index = project.posts.length - 1;
 		if (index >= project.posts.length) index = 0;
 
-		let image = document.getElementById('img.' + project.id + '.' + index);
+		const imageId = project.id.toString() + '.' + index;
+		const image = document.getElementById('img.' + imageId);
+		const text = document.getElementById('text.' + imageId);
+		const link = document.getElementById('link.' + imageId);
 
 		if (window.innerWidth > image.naturalWidth) {
 			carousel.style.maxWidth = image.naturalWidth + 'px';
 			carousel.style.maxHeight = image.naturalHeight + 'px';
+			if (link != null && link.offsetWidth != null && text != null) {
+				text.style.maxWidth = image.naturalWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
+			if (link != null && link.offsetWidth != null) {
+				link.style.left = image.naturalWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
 		} else {
 			carousel.style.maxWidth = window.innerWidth + 'px';
 			carousel.style.maxHeight = (2 * image.width) / 3 + 'px';
+			if (link != null && link.offsetWidth != null && text != null) {
+				text.style.maxWidth = window.innerWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
+			if (link != null && link.offsetWidth != null) {
+				link.style.left = window.innerWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
 		}
 	}
 
@@ -113,20 +129,29 @@
 			<!-- Image -->
 			<img id={'img.' + image.id} src={image.src} loading="lazy" alt={project.id} class="w-full" />
 			<!-- Text -->
+			{#if image.text}
+				<p
+					id={'text.' + image.id}
+					class="absolute lg:bottom-4 bottom-2 lg:left-4 left-2 lg:text-xl text-sm uppercase p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)]"
+				>
+					{image.text}
+				</p>
+			{/if}
 			{#if image.link}
 				<a
 					href={image.link}
 					target="_blank"
-					id={'text.' + image.id}
-					class="absolute bottom-4 left-4 text-xl p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)] hover:text-red-500 hover:underline"
-					>{image.text}</a
+					id={'link.' + image.id}
+					class="absolute btn btn-circle lg:bottom-4 bottom-2 text-xl uppercase p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)]"
+					>{'🔗'}</a
 				>
-			{:else}
+			{/if}
+			{#if image.date}
 				<p
-					id={'text.' + image.id}
-					class="absolute bottom-4 left-4 text-xl p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)]"
+					id={'date.' + image.id}
+					class="absolute lg:bottom-4 bottom-2 lg:right-4 right-2 lg:text-xl text-sm p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)]"
 				>
-					{image.text}
+					{image.date}
 				</p>
 			{/if}
 			<!-- Navigation -->

@@ -11,14 +11,29 @@
 		index = project.posts.indexOf(post);
 		const modal = document.getElementById(post.project);
 		const carousel = document.getElementById('carousel.' + post.project);
-		const image = document.getElementById('img.' + post.project + '.' + index);
+		const imageId = post.project + '.' + index;
+		const image = document.getElementById('img.' + imageId);
+		const text = document.getElementById('text.' + imageId);
+		const link = document.getElementById('link.' + imageId);
 
 		if (window.innerWidth > image.naturalWidth) {
 			carousel.style.maxWidth = image.naturalWidth + 'px';
 			carousel.style.maxHeight = image.naturalHeight + 'px';
+			if (link != null && link.offsetWidth != null && text != null) {
+				text.style.maxWidth = image.naturalWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
+			if (link != null && link.offsetWidth != null) {
+				link.style.left = image.naturalWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
 		} else {
 			carousel.style.maxWidth = window.innerWidth + 'px';
-			carousel.style.maxHeight = (2 * window.innerWidth) / 3 + 'px';
+			carousel.style.maxHeight = (2 * image.width) / 3 + 'px';
+			if (link != null && link.offsetWidth != null && text != null) {
+				text.style.maxWidth = window.innerWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
+			if (link != null && link.offsetWidth != null) {
+				link.style.left = window.innerWidth / 2 - link.offsetWidth / 2 + 'px';
+			}
 		}
 
 		modal.showModal();

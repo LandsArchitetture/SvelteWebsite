@@ -34,6 +34,7 @@
 	"type": "module",
 	"dependencies": {
 		"@directus/sdk": "^15.1.0",
+		"axios": "^1.7.2",
 		"freewall": "^1.0.8",
 		"jquery": "^3.7.1",
 		"tailwind-scrollbar-hide": "^1.1.7"

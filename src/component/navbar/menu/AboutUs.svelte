@@ -1,4 +1,8 @@
 <script>
+	import { get } from 'svelte/store';
+
+	export let language;
+	export let translations;
 	/**
 	 * Open the About Us modal when called
 	 */
@@ -21,6 +25,20 @@
 		window.location.hash = '';
 		window.location.hash = '#AboutUs.' + index;
 	}
+
+	let currentLanguage = language;
+
+	$: if (currentLanguage !== language) {
+		document.getElementById('aboutUs').innerHTML = getTranslation('About us');
+		currentLanguage = language;
+	}
+
+	function getTranslation(word) {
+		if (translations && translations[word]) {
+			return translations[word][language];
+		}
+		return '';
+	}
 </script>
 
-<button class="font-bold" on:click={openModal}>About Us</button>
+<button class="font-bold" on:click={openModal} id="aboutUs">About Us</button>
