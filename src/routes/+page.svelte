@@ -87,12 +87,10 @@
 			})
 		);
 		let filterPosts = [];
-		all_posts.forEach((post) => {
-			filterProjects.forEach((proj) => {
-				if (post.project === proj.id) {
-					filterPosts.push(post);
-				}
-			});
+		filterProjects.reverse().forEach((proj) => {
+			if (proj.posts.length > 0) {
+				filterPosts.push(proj.posts[0]);
+			}
 		});
 		filtered = filterPosts;
 	}

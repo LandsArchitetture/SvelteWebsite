@@ -41,6 +41,10 @@
 		window.location.hash = '';
 		window.location.hash = post.project + '.' + index;
 	}
+
+	function error(name, id, size) {
+		console.log(name);
+	}
 </script>
 
 <button
@@ -52,7 +56,8 @@
 		class="object-cover w-full"
 		loading="lazy"
 		src={URL + post.image + '_' + post.size + '.jpeg'}
-		alt={post.project}
+		on:error={error(post.image, post.id, post.size)}
+		alt={post.image}
 	/>
 	<p
 		class="project text-white [text-shadow:_0_0_5px_rgb(0_0_0)] absolute top-0 left-2 text-xl font-bold"
