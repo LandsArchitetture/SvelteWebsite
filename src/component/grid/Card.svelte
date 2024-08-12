@@ -43,7 +43,9 @@
 	}
 
 	function error(name, id, size) {
-		console.log(name);
+		let image = document.getElementById(id + '_' + size);
+		image.src =
+			'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/800px-A_black_image.jpg';
 	}
 </script>
 
