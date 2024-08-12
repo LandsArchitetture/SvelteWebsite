@@ -3,7 +3,7 @@
 
 	export let project;
 
-	const URL = 'https://www.free-lands.com/';
+	const LINK = 'https://www.free-lands.com/';
 
 	let index = project.posts.indexOf(post);
 
@@ -57,7 +57,7 @@
 		id={post.id + '_' + post.size}
 		class="object-cover w-full"
 		loading="lazy"
-		src={URL + post.image + '_' + post.size + '.jpeg'}
+		src={LINK + post.image + '_' + post.size + '.jpeg'}
 		on:error={error(post.image, post.id, post.size)}
 		alt={post.image}
 	/>
