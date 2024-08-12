@@ -1,5 +1,6 @@
 <script>
 	import { aboutUsTranslations } from '$lib/stores/translations';
+	import EMANUELE_IMAGE from '$lib/img/EmanueleSaurwein.jpg';
 
 	const BLACK =
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/800px-A_black_image.jpg';
@@ -196,7 +197,7 @@
 			<div id="AboutUs.0" class="carousel-item relative w-fit">
 				<img
 					id={'img.' + 'AboutUs.0'}
-					src="$lib/img/EmanueleSaurwein.jpg"
+					src={EMANUELE_IMAGE}
 					alt={'Emanuele Saurwein'}
 					class="w-[900px] h-[600px] object-cover"
 				/>
