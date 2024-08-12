@@ -58,7 +58,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH2 }}
-          source: 'public/'
+          source: 'build/'
           target: 'www/lands.swiss'
           strip_components: 1
           rm: true
