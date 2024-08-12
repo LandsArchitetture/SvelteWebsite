@@ -1,6 +1,6 @@
 <script>
 	import { aboutUsTranslations } from '$lib/stores/translations';
-	import EMANUELE_IMAGE from '$lib/img/EmanueleSaurwein.jpg';
+	import EMANUELE_IMAGE from './EmanueleSaurwein.jpg';
 
 	const BLACK =
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/800px-A_black_image.jpg';
