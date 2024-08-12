@@ -1,52 +1,74 @@
-name: Deploy to GitHub Pages
+name: Build and deploy to Hostpoint
 
 on:
-    push:
-        branches: 'main'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  repository_dispatch:
 
 jobs:
-    build_site:
-        runs-on: ubuntu-latest
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
+      - name: Install python dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install paramiko
+          pip3 install googletrans==4.0.0-rc1
+          pip3 install deepl
 
-            - name: Install Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-                  cache-dependency-path: '**/package-lock.json'
-                  cache: npm
+      - name: Save images on database
+        run: |
+          python3 images.py
 
-            - name: Install dependencies
-              run: npm install
 
-            - name: build
-              env:
-                  BASE_PATH: '/${{ github.event.repository.name }}'
-              run: |
-                  npm run build
 
-            - name: Upload Artifacts
-              uses: actions/upload-pages-artifact@v3
-              with:
-                  # this should match the `pages` option in your adapter-static options
-                  path: 'build/'
+  deployment:
+    runs-on: ubuntu-latest
 
-    deploy:
-        needs: build_site
-        runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-        permissions:
-            pages: write
-            id-token: write
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
 
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-        steps:
-            - name: Deploy
-              id: deployment
-              uses: actions/deploy-pages@v4
+      - run: npm install --legacy-peer-deps
+      - run: npm run build
+
+      - name: Deploy on Hostpoint
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH2 }}
+          source: 'out/'
+          target: 'www/lands.swiss'
+          strip_components: 1
+          rm: true
+
+env:
+  HOST: ${{ secrets.HOST }}
+  USERNAME: ${{ secrets.USERNAME }}
+  SSH2: ${{ secrets.SSH2 }}
+  DEEPL_KEY: ${{ secrets.DEEPL_KEY }}
+  PASSWORD: ${{ secrets.PASSWORD }}
