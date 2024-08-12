@@ -56,31 +56,31 @@
 		adapt(wall);
 
 		/* If the screen change resize to fit width */
-		window.addEventListener('resize', (event) => {
+		window.addEventListener('resize', () => {
 			adapt(wall);
 		});
 
-		document.getElementById('search').addEventListener('input', (event) => {
+		document.getElementById('search').addEventListener('input', () => {
 			adapt(wall);
 		});
 
-		document.getElementById('proj').addEventListener('click', (event) => {
+		document.getElementById('proj').addEventListener('click', () => {
 			adapt(wall);
 		});
 
-		document.getElementById('comp').addEventListener('click', (event) => {
+		document.getElementById('comp').addEventListener('click', () => {
 			adapt(wall);
 		});
 
-		document.getElementById('buld').addEventListener('click', (event) => {
+		document.getElementById('buld').addEventListener('click', () => {
 			adapt(wall);
 		});
 
-		document.getElementById('misc').addEventListener('click', (event) => {
+		document.getElementById('misc').addEventListener('click', () => {
 			adapt(wall);
 		});
 
-		document.getElementById('logo').addEventListener('click', (event) => {
+		document.getElementById('logo').addEventListener('click', () => {
 			adapt(wall);
 		});
 	});

@@ -2,7 +2,7 @@
 	import { postTranslations } from '$lib/stores/translations';
 	export let project;
 
-	const URL = 'https://www.free-lands.com/';
+	const LINK = 'https://www.free-lands.com/';
 
 	$: images = project.posts.map((post) => {
 		return {
@@ -34,7 +34,7 @@
 	 * @param img The image name
 	 */
 	function getSrc(img) {
-		return URL + img + '_modal.jpeg';
+		return LINK + img + '_modal.jpeg';
 	}
 
 	/**
@@ -80,7 +80,7 @@
 	 * @param dir The direction of the carousel (1 for next, -1 for previous)
 	 */
 	function handleSetSize(dir) {
-		return (event) => {
+		return () => {
 			setSize(dir);
 		};
 	}

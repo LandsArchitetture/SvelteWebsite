@@ -180,7 +180,7 @@
 	 * @param dir The direction of the carousel (1 for next, -1 for previous)
 	 */
 	function handleSetSize(dir) {
-		return (event) => {
+		return () => {
 			setSize(dir);
 		};
 	}

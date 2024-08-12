@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 html {
-    scrollbar-width: none;
+	scrollbar-width: none;
 }
 
 body {
-    font-family: 'Helvetica', sans-serif;
+	font-family: 'Helvetica', sans-serif;
 }

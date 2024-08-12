@@ -11,43 +11,41 @@ export const navbarTranslations = writable({});
 export const aboutUsTranslations = writable({});
 
 export async function loadPostTranslations(directus) {
-    const posts_translations = await directus.request(
-        readItems('posts_translations', { limit: -1 })
-    );
+	const posts_translations = await directus.request(readItems('posts_translations', { limit: -1 }));
 
-    allPostTranslations = posts_translations
+	allPostTranslations = posts_translations;
 }
 
 export async function loadNavbarTranslations() {
-    const navbar_translations = await axios.get('https://www.free-lands.com/Translations.json');
+	const navbar_translations = await axios.get('https://www.free-lands.com/Translations.json');
 
-    allNavbarTranslations = navbar_translations.data;
+	allNavbarTranslations = navbar_translations.data;
 }
 
 export function updateLanguage() {
-    let lang;
+	let lang;
 
-    currentLanguage.subscribe(value => lang = value);
+	currentLanguage.subscribe((value) => (lang = value));
 
-    let navbarDict = {};
-    let aboutUsDict = {};
-    let postDict = {};
+	let navbarDict = {};
+	let aboutUsDict = {};
+	let postDict = {};
 
-    for (const key in allNavbarTranslations['Navbar']) {
-        navbarDict[key] = allNavbarTranslations['Navbar'][key][lang];
-    }
+	for (const key in allNavbarTranslations['Navbar']) {
+		navbarDict[key] = allNavbarTranslations['Navbar'][key][lang];
+	}
 
-    for (const key in allNavbarTranslations['AboutUs']) {
-        aboutUsDict[key] = allNavbarTranslations['AboutUs'][key][lang];
-    }
+	for (const key in allNavbarTranslations['AboutUs']) {
+		aboutUsDict[key] = allNavbarTranslations['AboutUs'][key][lang];
+	}
 
-    allPostTranslations.forEach(post => {
-        if (post.languages_id === lang) {
-            postDict[post.posts_id] = post.text;
-        }
-    });
+	allPostTranslations.forEach((post) => {
+		if (post.languages_id === lang) {
+			postDict[post.posts_id] = post.text;
+		}
+	});
 
-    postTranslations.set(postDict);
-    navbarTranslations.set(navbarDict);
-    aboutUsTranslations.set(aboutUsDict);
+	postTranslations.set(postDict);
+	navbarTranslations.set(navbarDict);
+	aboutUsTranslations.set(aboutUsDict);
 }
