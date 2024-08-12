@@ -1,6 +1,5 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { get } from 'svelte/store';
 
 	export let language;
 	export let translations;
@@ -19,6 +18,7 @@
 
 	$: if (currentLanguage !== language) {
 		document.getElementById('lang').innerHTML = getTranslation('Language');
+		console.log('Language: ', language);
 		currentLanguage = language;
 	}
 

@@ -3,7 +3,6 @@
 	import AboutUs from './menu/AboutUs.svelte';
 	import Contact from './menu/Contact.svelte';
 	import Language from './menu/Language.svelte';
-	import { get } from 'svelte/store';
 
 	export let language;
 	export let translations;
