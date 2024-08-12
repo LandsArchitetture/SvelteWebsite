@@ -1,8 +1,6 @@
 <script>
+	import { aboutUsTranslations } from '$lib/stores/translations';
 	import EMANUELE_IMAGE from '$lib/img/EmanueleSaurwein.jpg';
-
-	export let language;
-	export let translations;
 
 	const BLACK =
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/800px-A_black_image.jpg';
@@ -186,24 +184,6 @@
 			setSize(dir);
 		};
 	}
-
-	let currentLanguage = language;
-
-	$: if (currentLanguage !== language) {
-		document.getElementById('Introduction').innerHTML = getTranslation('Introduction');
-		KEYWORDS.forEach((keyword, i) => {
-			document.getElementById(keyword.word).innerHTML = getTranslation(keyword.word);
-			document.getElementById(i).innerHTML = getTranslation(i + 1);
-		});
-		currentLanguage = language;
-	}
-
-	function getTranslation(word) {
-		if (translations && translations[word]) {
-			return translations[word][language];
-		}
-		return '';
-	}
 </script>
 
 <dialog id="AboutUs" class="modal p-0 !bg-transparent">
@@ -225,16 +205,16 @@
 					{'Emanuele Saurwein'}
 				</p>
 				<p class="absolute bottom-[50px] left-[25px] text-white capitalize">
-					{'Architetto'}
+					{$aboutUsTranslations['Profession']}
 				</p>
 				<p class="absolute bottom-[25px] left-[25px] text-white">
-					{'Titolare del laboratorio di architettura LANDS'}
+					{$aboutUsTranslations['Description']}
 				</p>
 				<p
 					class="absolute top-1/2 -translate-y-1/2 right-[75px] w-2/5 text-white"
 					id="Introduction"
 				>
-					{'LANDS is an architecture laboratory. It is based in Lugano, a city on the edge of a beautiful lake and surrounded by mountains. We are motivated, capable and passionate people. We work within, between, and with the following words'}
+					{$aboutUsTranslations['Introduction']}
 				</p>
 
 				<div class="absolute flex justify-between -translate-y-1/2 left-5 right-5 top-1/2">
@@ -255,10 +235,10 @@
 						id={keyword.word}
 						class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-center text-4xl p-2 uppercase"
 					>
-						{getTranslation(keyword.word)}
+						{$aboutUsTranslations[keyword.word]}
 					</p>
 					<p id={i} class="absolute bottom-[25px] left-1/2 -translate-x-1/2 text-white text-center">
-						{getTranslation(i + 1)}
+						{$aboutUsTranslations[i + 1]}
 					</p>
 					<div
 						class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"

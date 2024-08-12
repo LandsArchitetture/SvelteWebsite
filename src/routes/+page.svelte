@@ -1,15 +1,18 @@
 <script>
-	import axios from 'axios';
 	import Wall from '../component/grid/Wall.svelte';
 	import Modal from '../component/modal/Modal.svelte';
 	import Navbar from '../component/navbar/Navbar.svelte';
 	import AboutModal from '../component/navbar/menu/AboutModal.svelte';
 	import ContactModal from '../component/navbar/menu/ContactModal.svelte';
 	import { createDirectus, rest, readItems, readFiles } from '@directus/sdk';
+	import {
+		loadPostTranslations,
+		loadNavbarTranslations,
+		updateLanguage
+	} from '$lib/stores/translations';
 
 	let isLoading = true;
 	let data;
-	let language = 'en-US';
 	let all_posts = [];
 	let filtered = [];
 	let TYPES = ['progetto', 'concorso', 'edificio', 'varie'];
@@ -26,16 +29,12 @@
 			const posts = await directus.request(readItems('posts', { sort: '-date', limit: -1 }));
 			const projects = await directus.request(readItems('projects', { limit: -1 }));
 			const files = await directus.request(readFiles({ limit: -1 }));
-			const posts_translations = await directus.request(
-				readItems('posts_translations', { limit: -1 })
-			);
 			const languages = await directus.request(readItems('languages', { limit: -1 }));
-			const raw_navbar_translations = await axios.get(
-				'https://www.free-lands.com/Translations.json'
-			);
-			const navbar_translations = raw_navbar_translations.data;
+			await loadPostTranslations(directus);
+			await loadNavbarTranslations();
+			updateLanguage();
 
-			data = { posts, projects, files, posts_translations, languages, navbar_translations };
+			data = { posts, projects, files, languages };
 			all_posts = data.posts;
 			filtered = all_posts;
 		} catch (error) {
@@ -109,10 +108,6 @@
 			filterPosts(all_posts, filter);
 		}
 	}
-
-	function changeLanguage(event) {
-		language = event.detail.text;
-	}
 </script>
 
 {#if isLoading}
@@ -122,18 +117,13 @@
 		</div>
 	</div>
 {:else}
-	<Navbar
-		on:filter={handleFilter}
-		on:translate={changeLanguage}
-		{language}
-		translations={data.navbar_translations.Navbar}
-	>
+	<Navbar on:filter={handleFilter}>
 		<div class="freewall m-2 select-none">
 			<Wall posts={filtered} projects={data.projects} />
 			{#each data.projects as proj}
-				<Modal project={proj} {language} translations={data.posts_translations} />
+				<Modal project={proj} />
 			{/each}
-			<AboutModal {language} translations={data.navbar_translations.AboutUs} />
+			<AboutModal />
 			<ContactModal />
 		</div>
 	</Navbar>

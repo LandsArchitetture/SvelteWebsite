@@ -1,9 +1,6 @@
 <script>
+	import { postTranslations } from '$lib/stores/translations';
 	export let project;
-
-	export let language;
-
-	export let translations;
 
 	const URL = 'https://www.free-lands.com/';
 
@@ -11,7 +8,7 @@
 		return {
 			id: project.id.toString() + '.' + project.posts.indexOf(post),
 			src: getSrc(post.image),
-			text: getTranslation(post),
+			text: post.text,
 			post: post,
 			link: post.link,
 			prev: getRef(project.posts.indexOf(post), -1),
@@ -19,37 +16,6 @@
 			date: post.date
 		};
 	});
-
-	let currentLanguage = language;
-
-	/**
-	 * Retranslate the post when the language changes
-	 */
-	$: if (language !== currentLanguage) {
-		images.forEach((image) => {
-			image.text = getTranslation(image.post);
-		});
-		for (let i = 0; i < images.length; i++) {
-			let text = document.getElementById('text.' + images[i].id);
-			text.innerHTML = images[i].text;
-		}
-		currentLanguage = language;
-	}
-
-	/**
-	 * Get the translation of the post
-	 * @param post The post to translate
-	 */
-	function getTranslation(post) {
-		let translation = translations.find((t) => {
-			return post.translations.find((number) => {
-				if (number === t.id && t.languages_id === language) {
-					return t;
-				}
-			});
-		});
-		return translation ? translation.text : undefined;
-	}
 
 	/**
 	 * Get the reference of the next or previous image
@@ -129,12 +95,12 @@
 			<!-- Image -->
 			<img id={'img.' + image.id} src={image.src} loading="lazy" alt={project.id} class="w-full" />
 			<!-- Text -->
-			{#if image.text}
+			{#if $postTranslations[image.post.id]}
 				<p
 					id={'text.' + image.id}
 					class="absolute lg:bottom-4 bottom-2 lg:left-4 left-2 lg:text-xl text-sm uppercase p-2 text-white ![text-shadow:_0_0_20px_rgb(0_0_0_/_90%)]"
 				>
-					{image.text}
+					{$postTranslations[image.post.id]}
 				</p>
 			{/if}
 			{#if image.link}

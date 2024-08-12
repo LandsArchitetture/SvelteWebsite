@@ -2,9 +2,6 @@
 	import Search from './Search.svelte';
 	import Logo from './Logo.svelte';
 	import Menu from './Menu.svelte';
-
-	export let language;
-	export let translations;
 </script>
 
 <div class="drawer drawer-end">
@@ -19,12 +16,12 @@
 
 			<div class="flex-2 hidden lg:flex flex-col">
 				<ul class="flex-1 menu menu-horizontal text-xl">
-					<Menu on:filter on:translate {language} {translations} />
+					<Menu on:filter on:translate />
 				</ul>
 			</div>
 
 			<div class="flex-1 hidden form-control lg:flex items-end p-0">
-				<Search on:filter {language} {translations} />
+				<Search on:filter />
 			</div>
 
 			<div class="flex-1 flex lg:hidden justify-end p-0">
@@ -52,8 +49,8 @@
 	<div class="drawer-side">
 		<label for="my-drawer-1" aria-label="close sidebar" class="drawer-overlay"></label>
 		<ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content pt-20">
-			<Menu on:filter {language} {translations} />
-			<Search on:filter {language} {translations} />
+			<Menu on:filter />
+			<Search on:filter />
 		</ul>
 	</div>
 </div>

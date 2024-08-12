@@ -2,16 +2,12 @@
 	import Carousel from './Carousel.svelte';
 
 	export let project;
-
-	export let language;
-
-	export let translations;
 </script>
 
 <dialog id={project.id} class="modal">
 	<div class="modal-box flex p-0 w-fit max-w-fit max-h-fit select-none">
 		<!-- Carousel -->
-		<Carousel {project} {language} {translations} />
+		<Carousel {project} />
 		<!-- Close button -->
 		<form method="dialog">
 			<button

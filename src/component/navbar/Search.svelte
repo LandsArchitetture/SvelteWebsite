@@ -1,8 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-
-	export let language;
-	export let translations;
+	import { navbarTranslations } from '$lib/stores/translations';
 
 	const dispatch = createEventDispatcher();
 
@@ -15,20 +13,6 @@
 	function transmit() {
 		dispatch('filter', { text: filter });
 	}
-
-	let currentLanguage = language;
-
-	$: if (currentLanguage !== language) {
-		document.getElementById('search').placeholder = getTranslation('Search');
-		currentLanguage = language;
-	}
-
-	function getTranslation(word) {
-		if (translations && translations[word]) {
-			return translations[word][language];
-		}
-		return 'Search';
-	}
 </script>
 
 <input
@@ -36,6 +20,6 @@
 	on:input={transmit}
 	id="search"
 	type="text"
-	placeholder="Search"
+	placeholder={$navbarTranslations['Search']}
 	class="input input-bordered w-50 m-4 lg:m-0"
 />
