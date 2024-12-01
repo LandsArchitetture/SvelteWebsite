@@ -16,7 +16,7 @@ DEEPL_KEY = os.environ["DEEPL_KEY"]
 SSH_KEY = paramiko.RSAKey.from_private_key(io.StringIO(SSH), password=PASSWORD)
 
 API = "https://admin.lands.swiss"
-REMOTE_DIR = "www/free-lands.com"
+REMOTE_DIR = "www/lands.swiss"
 DIRECTORY = "images"
 TRANSLATIONS_FILE = "Translations.json"
 
@@ -52,11 +52,11 @@ def translate_text_deepl(text, target_language):
 
 # Connect to remote server
 
-print("Connecting to FREELANDS ...")
+print("Connecting to REMOTE DIR ...")
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(HOST, username=USERNAME, pkey=SSH_KEY)
-print("Connected to FREELANDS")
+print("Connected to REMOTE DIR")
 
 # Open SFTP session
 
@@ -218,17 +218,17 @@ print("Translation file created")
 
 # Send the file to the free-lands DB
 
-print("Transferring translation file to FREELANDS ...")
+print("Transferring translation file to REMOTE DIR ...")
 local_path2 = os.path.join(DIRECTORY, TRANSLATIONS_FILE)
 remote_path2 = os.path.join(REMOTE_DIR, TRANSLATIONS_FILE)
 sftp.put(local_path2, remote_path2)
-print("Transferred translations file to FREELANDS")
+print("Transferred translations file to REMOTE DIR")
 
 ########################################################################
 # POSTS TRANSLATIONS
 ########################################################################
 
-print("Downloading all posts and transfering them to FREELANDS...")
+print("Downloading all posts and transfering them to REMOTE DIR...")
 for post in json.loads(posts)["data"]:
     image_id = post["image"]
     size = post["size"]
@@ -258,7 +258,7 @@ for post in json.loads(posts)["data"]:
         remote_path1 = os.path.join(REMOTE_DIR, f"{image_id}_{size}.jpeg")
         sftp.put(local_path1, remote_path1)
 
-        print(f"Transferred image: {image_id}_{size}.jpeg to FREELANDS")
+        print(f"Transferred image: {image_id}_{size}.jpeg to REMOTE DIR")
 
     # Add modal version of the image to the database
     if f"{image_id}_modal.jpeg" not in already_there:
@@ -275,8 +275,8 @@ for post in json.loads(posts)["data"]:
         remote_path2 = os.path.join(REMOTE_DIR, f"{image_id}_modal.jpeg")
         sftp.put(local_path2, remote_path2)
 
-        print(f"Transferred image: {image_id}_modal.jpeg to FREELANDS")
-print("Transferred all necessary images to FREELANDS")
+        print(f"Transferred image: {image_id}_modal.jpeg to REMOTE DIR")
+print("Transferred all necessary images to REMOTE DIR")
 
 shutil.rmtree(DIRECTORY)
 
