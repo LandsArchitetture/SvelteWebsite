@@ -30,11 +30,12 @@
 			const projects = await directus.request(readItems('projects', { limit: -1 }));
 			const files = await directus.request(readFiles({ limit: -1 }));
 			const languages = await directus.request(readItems('languages', { limit: -1 }));
-			await loadPostTranslations(directus);
-			await loadNavbarTranslations();
-			updateLanguage();
+			// await loadPostTranslations(directus);
+			// await loadNavbarTranslations();
+			// updateLanguage();
 
 			data = { posts, projects, files, languages };
+			console.log('Data fetched:', data);
 			all_posts = data.posts;
 			filtered = all_posts;
 		} catch (error) {

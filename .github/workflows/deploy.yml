@@ -8,22 +8,22 @@ on:
   repository_dispatch:
 
 jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+  # update:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Install python dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip
-          pip3 install paramiko
-          pip3 install googletrans==4.0.0-rc1
-          pip3 install deepl
+  #     - name: Install python dependencies
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y python3-pip
+  #         pip3 install paramiko
+  #         pip3 install googletrans==4.0.0-rc1
+  #         pip3 install deepl
 
-      - name: Save images on database
-        run: |
-          python3 images.py
+  #     - name: Save images on database
+  #       run: |
+  #         python3 images.py
 
   deployment:
     runs-on: ubuntu-latest
