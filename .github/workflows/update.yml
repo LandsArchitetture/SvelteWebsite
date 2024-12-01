@@ -1,4 +1,4 @@
-name: Build and deploy Svelte app to Hostpoint
+name: Update the images and the navbar translations
 
 on: 
     workflow_dispatch:
