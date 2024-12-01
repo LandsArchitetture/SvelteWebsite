@@ -25,5 +25,5 @@
 </script>
 
 <button class="font-bold" on:click={openModal} id="aboutUs"
-	>{$navbarTranslations['About us'] ? navbarTranslations['About us'] : ''}</button
+	>{$navbarTranslations['About us']}</button
 >

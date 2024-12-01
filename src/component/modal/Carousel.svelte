@@ -2,7 +2,7 @@
 	import { postTranslations } from '$lib/stores/translations';
 	export let project;
 
-	const LINK = 'https://admin.lands.swiss/assets/';
+	const LINK = 'https://lands.swiss/';
 
 	$: images = project.posts.map((post) => {
 		return {
@@ -34,7 +34,7 @@
 	 * @param img The image name
 	 */
 	function getSrc(img) {
-		return LINK + img + '?key=modal';
+		return LINK + img + '_modal.jpeg';
 	}
 
 	/**

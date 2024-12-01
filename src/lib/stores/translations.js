@@ -17,7 +17,7 @@ export async function loadPostTranslations(directus) {
 }
 
 export async function loadNavbarTranslations() {
-	const navbar_translations = await axios.get('https://www.free-lands.com/Translations.json');
+	const navbar_translations = await axios.get('https://lands.swiss/Translations.json');
 
 	allNavbarTranslations = navbar_translations.data;
 }

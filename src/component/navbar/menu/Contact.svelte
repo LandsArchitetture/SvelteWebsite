@@ -8,6 +8,4 @@
 	}
 </script>
 
-<button class="font-bold" on:click={showModal} id="cont"
-	>{$navbarTranslations['Contact'] ? navbarTranslations['Contact'] : ''}</button
->
+<button class="font-bold" on:click={showModal} id="cont">{$navbarTranslations['Contact']}</button>

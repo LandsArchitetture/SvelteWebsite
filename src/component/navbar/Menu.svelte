@@ -38,31 +38,21 @@
 
 <li>
 	<details>
-		<summary class="font-bold" id="about"
-			>{$navbarTranslations['About us'] ? navbarTranslations['About us'] : ''}</summary
-		>
+		<summary class="font-bold" id="about">{$navbarTranslations['About us']}</summary>
 		<ul
 			class="menu font-bold p-2 lg:bg-base-300 bg-base-200 rounded-t-none -z-5 lg:shadow-[5px_5px_2px_0_rgba(0,0,0,0.5)]"
 		>
 			<li>
-				<button id="proj" on:click={project}
-					>{$navbarTranslations['Projects'] ? navbarTranslations['Projects'] : ''}</button
-				>
+				<button id="proj" on:click={project}>{$navbarTranslations['Projects']}</button>
 			</li>
 			<li>
-				<button id="comp" on:click={competitions}
-					>{$navbarTranslations['Competitions'] ? navbarTranslations['Competitions'] : ''}</button
-				>
+				<button id="comp" on:click={competitions}>{$navbarTranslations['Competitions']}</button>
 			</li>
 			<li>
-				<button id="buld" on:click={buildings}
-					>{$navbarTranslations['Buildings'] ? navbarTranslations['Buildings'] : ''}</button
-				>
+				<button id="buld" on:click={buildings}>{$navbarTranslations['Buildings']}</button>
 			</li>
 			<li>
-				<button id="misc" on:click={miscellaneous}
-					>{$navbarTranslations['Miscellaneous'] ? navbarTranslations['Miscellaneous'] : ''}</button
-				>
+				<button id="misc" on:click={miscellaneous}>{$navbarTranslations['Miscellaneous']}</button>
 			</li>
 			<div class="divider my-0 select-none"></div>
 			<li><AboutUs /></li>

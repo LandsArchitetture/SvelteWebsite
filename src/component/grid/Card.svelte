@@ -3,7 +3,7 @@
 
 	export let project;
 
-	const LINK = 'https://admin.lands.swiss/assets/';
+	const LINK = 'https://lands.swiss/';
 
 	let index = project.posts.indexOf(post);
 
@@ -57,7 +57,7 @@
 		id={post.id + '_' + post.size}
 		class="object-cover w-full"
 		loading="lazy"
-		src={LINK + post.image + '?key=' + post.size}
+		src={LINK + post.image + '_' + post.size + '.jpeg'}
 		on:error={error(post.image, post.id, post.size)}
 		alt={post.image}
 	/>
